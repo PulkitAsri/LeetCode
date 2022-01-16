@@ -2,33 +2,30 @@ class Solution {
 public:
     int maxDistToClosest(vector<int>& seats) {
         int n=seats.size();
+        vector<int> arr(n,0);
         
-        int maxD=1;
+        int maxD=INT_MIN;
+        int nearOccIndex=-1;
         for(int i=0;i<n;i++){
             if(seats[i]==0){
-                int left=INT_MAX;
-                int right=INT_MAX;
-                for(int j=i-1;j>=0;j--){
-                    if(seats[j]==1){
-                        left=i-j;
-                        break;
-                    }
-                }
-                
-                for(int j=i+1;j<n;j++){
-                    if(seats[j]==1){
-                        right=j-i;
-                        break;
-                    }
-                }
-                
-                int minDistance=min(left,right);
-                
-                maxD=max(maxD,minDistance);
+                arr[i]= nearOccIndex==-1 ? INT_MAX : i-nearOccIndex;
             }else{
-                continue;
-            }  
+                //save the seat
+                nearOccIndex=i;
+            }   
         }
+        
+        nearOccIndex=-1;
+        for(int i=n-1;i>=0;i--){
+            if(seats[i]==0){
+                arr[i]= nearOccIndex==-1 ? arr[i] : min(nearOccIndex-i,arr[i]);
+            }else{
+                //save the seat
+                nearOccIndex=i;
+            }   
+        }
+        
+        for(int x: arr) maxD=max(maxD,x);
         
         return maxD;
     }
