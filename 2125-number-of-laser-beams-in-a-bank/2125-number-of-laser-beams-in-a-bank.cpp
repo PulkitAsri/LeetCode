@@ -10,7 +10,7 @@ public:
             int l=bank[0].length();
             
             for(int j=0; j<l; j++)
-                n2+= bank[i][j] - '0';
+                if(bank[i][j]=='1') n2++;
             
             if(n2==0) continue;
             else{
