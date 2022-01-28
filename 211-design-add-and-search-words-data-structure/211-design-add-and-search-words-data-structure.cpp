@@ -26,27 +26,27 @@ class WordDictionary {
     
     
     
-    bool processNode(string word, Node* ptr){
+    bool processNode(string &word, Node* ptr, int &n, int idx){
         
         bool isItPos=false;
         
-        if(word.length()==0){
+        if(idx==n){
             return ptr->isEnd();    
         }
         
-        char curr=word[0];
+        char curr=word[idx];
         
         if(curr=='.'){
             for(int i=0;i<26;i++){
                 char c=(char)('a'+ i);
                 if(ptr->containsKey(c)){
-                    isItPos= isItPos or processNode(word.substr(1), ptr->get(c));
+                    isItPos= isItPos or processNode(word, ptr->get(c), n, idx+1);
                 }
             }
         }else if(!ptr->containsKey(curr)){
             return false;
         }else{
-            return processNode(word.substr(1), ptr->get(curr));
+            return processNode(word, ptr->get(curr), n, idx+1);
         }
         
         return isItPos;
@@ -70,7 +70,8 @@ public:
     }
     
     bool search(string word) {
-        return processNode(word,root);
+        int n=word.length();
+        return processNode(word,root,n,0);
     }
 };
 
