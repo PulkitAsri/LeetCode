@@ -17,6 +17,7 @@ public:
         for(int i=1; i*i<=n; i++){
             if(!winnerSquareGame(dp, n - i*i)){
                 ans=true;
+                break;
             }
         }
         return dp[n]=ans;
