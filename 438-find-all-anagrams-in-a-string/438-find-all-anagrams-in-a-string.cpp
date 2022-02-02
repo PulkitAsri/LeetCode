@@ -5,6 +5,8 @@ class Solution {
                 return false;
         return true;
     }
+    
+    
 public:
     vector<int> findAnagrams(string s, string p) {
         
@@ -12,21 +14,26 @@ public:
         int k=p.length();
         vector<int> ansIdxs;
         
+        if(n<k) return ansIdxs;
+        
         vector<int> freq(26,0);
-        for(char c:p){
-            freq[c-'a']++;
+        for(char c:p) freq[c-'a']++;
+        
+        //Computing the window 1 time ....Then will Update the window
+        for(int j=0; j < k; j++){
+            freq[s[j]-'a']--;
+        }
+        if(checkZeroes(freq)){
+            ansIdxs.push_back(0);
         }
         
-        for(int i=0; i<=n-k; i++){
+        for(int i=1; i<=n-k; i++){  
+            //Using Window Method
+            freq[s[i-1] - 'a']++;
+            freq[s[i+k-1] - 'a']--;
             
-            vector<int> copy=freq;
-            for(int j=0; j < k; j++){
-                copy[s[i+j]-'a']--;
-            }
-            
-            if(checkZeroes(copy)){
-                ansIdxs.push_back(i);
-            }  
+            if(checkZeroes(freq))
+                ansIdxs.push_back(i);  
         }
         return ansIdxs;
     }
