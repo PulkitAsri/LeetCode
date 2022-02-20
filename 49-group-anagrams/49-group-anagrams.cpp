@@ -2,9 +2,11 @@
 class Solution {
     
     string hash(string s){
-        string k=s;
-        sort(k.begin(),k.end()); 
-        return k;
+        vector<int> freq(26,0);
+        int j=0;
+        for(char &c:s) freq[c-'a']++;
+        for(int i=0; i<26; i++) if(freq[i]!=0) while(freq[i]--) s[j++]=(char)(i+'a');            
+        return s;
     }
     
 public:
