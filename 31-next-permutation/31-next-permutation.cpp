@@ -7,7 +7,7 @@ public:
         int r=n-1;
         int l=n-2;
 
-        //Thought Process
+        //Thought Process=> for future Self
         // first find a decreasing sequence fromm back
 
         // lets Assume 1 3 5 4 2 case
@@ -21,6 +21,7 @@ public:
         // 1  2(L)  5(R)  3   2  => still (5,3,2) is decreasing 
 
         // C) -> put 5 3 2 in increqsing order ...* so basically reverse [R,n-1]
+        
 
         if(nums[l] < nums[r]){
             // no decreasing sequence
@@ -46,8 +47,6 @@ public:
             
             //(C)
             reverse(nums.begin() + r, nums.end());
-
-            
         }
         
     }
