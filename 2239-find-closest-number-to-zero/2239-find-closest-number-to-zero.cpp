@@ -8,9 +8,7 @@ public:
             if(m > abs(x)){
                 m=abs(x);
                 ans=x;
-            }else if(m==abs(x)){
-                if(ans<0) ans=x;
-            }
+            }else if(m==abs(x) && ans<0) ans=x;
         }
         
         return ans;
