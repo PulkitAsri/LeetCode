@@ -1,23 +1,30 @@
 class Solution {
-    void combinationSum3(int k, int n, int max, vector<vector<int>> &ans, vector<int> &curr){
-        
-        if(n < 0) return;
-        
-        if(max==0){
-            if(n==0 && k==0) ans.push_back(curr);
+    void recurr(vector<vector<int>> &ans,  vector<int> &temp, int k, int n, int i){
+        if(i==10){
+            if(k==0 && n==0){
+                ans.push_back(temp);
+            }
             return;
         }
         
-        curr.push_back(max);
-        combinationSum3(k-1, n-max, max-1, ans, curr);
-        curr.pop_back();
-        combinationSum3(k, n, max-1, ans, curr);
+        if(k==0){
+            if(n==0){
+                ans.push_back(temp);
+            }
+            return;
+        }
+        
+        temp.push_back(i);
+        recurr(ans, temp, k-1, n-i, i+1);
+        temp.pop_back();
+        recurr(ans, temp, k, n, i+1);
     }
 public:
     vector<vector<int>> combinationSum3(int k, int n) {
         vector<vector<int>> ans;
-        vector<int> curr;
-        combinationSum3(k,n,9,ans,curr);
+        vector<int> temp;
+        int sum=0;
+        recurr(ans,temp,k,n,1);
         return ans;
         
     }
