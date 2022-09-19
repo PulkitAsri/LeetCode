@@ -1,4 +1,4 @@
-int dp[202][100005];
+int dp[202][20002];
 class Solution {
     bool canPartition(vector<int> &nums, int idx, int sum){
         if(sum==0) return true;
