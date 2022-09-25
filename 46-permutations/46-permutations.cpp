@@ -18,11 +18,25 @@ class Solution {
         }
         
     }
+    
+    void solve2(vector<int> &nums, int idx){
+        if(idx==nums.size()){
+            //basecase-> array is in correct order
+            ans.push_back(nums);
+        }
+        
+        for(int i=idx; i<nums.size(); i++){
+            swap(nums[i],nums[idx]);
+            solve2(nums, idx+1);
+            swap(nums[i],nums[idx]);
+        }
+    }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<int> temp;
         vector<bool> visited(nums.size(),false);
-        solve(nums,temp, visited);
+        // solve(nums,temp, visited);
+        solve2(nums,0);
         return ans;
     }
 };
