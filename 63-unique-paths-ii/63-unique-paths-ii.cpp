@@ -14,11 +14,29 @@ public:
 
         return dp[i][j]= up+left;
 
-}
-    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        memset(dp,-1, sizeof dp);
-        int m= obstacleGrid.size();
-        int n= obstacleGrid[0].size();
-        return solve(m-1,n-1, obstacleGrid);
+    }
+    
+    int uniquePathsWithObstacles(vector<vector<int>>& maze) {
+        // memset(dp,-1, sizeof dp);
+        int m= maze.size();
+        int n= maze[0].size();
+    
+        // return solve(m-1,n-1, obstacleGrid);
+        
+        //ITERATIVE
+        for(int i=0; i<m; i++){
+            for (int j=0; j<n; j++){
+                if(!isSafe(i,j,maze)) dp[i][j]=0;
+                else if(i==0 and j==0) dp[i][j]=1;
+                else{
+                    int up = isSafe(i-1,j,maze) ? dp[i-1][j]: 0;
+                    int left = isSafe(i,j-1,maze) ? dp[i][j-1]: 0;
+
+                    dp[i][j]= up + left;
+                }
+            }
+        }
+        return dp[m-1][n-1];
+        
     }
 };
