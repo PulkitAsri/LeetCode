@@ -1,6 +1,5 @@
-
+int dp[2002][2002];
 class Solution {
-    int dp[2002][2002];
 public:
     bool solve(int i, int j, string &s, string &t){
         
