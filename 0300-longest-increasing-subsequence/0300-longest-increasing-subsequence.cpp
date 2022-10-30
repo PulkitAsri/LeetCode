@@ -15,10 +15,10 @@ public:
     int lengthOfLIS(vector<int>& nums) {
         int n= nums.size();
         // return solve(0,-1,nums,n,dp);
+        // ________________________________
+//       // ITERATIVE APPROACH FOR RECUSRION
         
-        //ITERATIVE APPROACH FOR RECUSRION
 //         vector<vector<int>> dp(2, vector<int>(n+2,-1));
-
 //         for(int i=n; i>=0; i--){
 //             for(int pi = n; pi>=0; pi--){
 //                 if(i==n) dp[i%2][pi] = 0;
@@ -32,25 +32,56 @@ public:
 //             }
 //         }
 //         return dp[0][0];
-        
-        //ITERATIVE APPRAOCH FOR RECONSTRUCTION
-        vector<int> dp(n, 1); 
-        vector<int> path(n,-1);
-        path[0]=0;
-        int ans=dp[0];
-        for(int i=1; i<n; i++){
-            for(int j=0; j<i; j++){
-                if(nums[j] < nums[i]){
-                    dp[i]= max(dp[j]+1, dp[i]);
-                }
-            }
-            ans= max(ans,dp[i]);
-        }
-        return ans;
-        
+         // ________________________________
 
+//         //ITERATIVE APPRAOCH FOR RECONSTRUCTION
+//         vector<int> dp(n, 1); 
+//         vector<int> path(n,-1);
+//         // path[0]=0;
+//         int ans=dp[0];
+//         int last=0;
+//         for(int i=1; i<n; i++){
+//             for(int j=0; j<i; j++){
+//                 if(nums[j] < nums[i]){
+//                     if(dp[j]+1 > dp[i]){
+//                         dp[i]= dp[j]+1;
+//                         path[i]=j;
+//                     } 
+//                 }
+//             }
+//             if(dp[i] > ans){
+//                 ans= dp[i];
+//                 last=i;
+//             }
+//         }
+//         //printing
+//         int p=last;
+//         vector<int> subSeq;
+//         while(p!=-1){
+//             subSeq.push_back(nums[p]);
+//             cout<<nums[p]<<" ";
+//             p=path[p];
+//         }
+//         cout<<endl;
         
+//         return ans;
+        
+        // ________________________________
         //ITERATIVE APPROACH TIME OPTIMIZATION USING BINARY SEARCH
+        //maintain the actual subsequence and either replace or append in that
+        
+        vector<int> seq;
+        for(int i=0; i<n; i++){
+            int idx= lower_bound(seq.begin(), seq.end(), nums[i]) - seq.begin();
+            // cout<<idx<<" "<<endl<<"->";
+            // for(int x: seq) cout<<x<<" "; cout<<endl;
+            if(idx==seq.size()){
+                seq.push_back(nums[i]);
+            }else{
+                seq[idx]= nums[i];
+            }
+        }
+        return seq.size();
         
         
     }
